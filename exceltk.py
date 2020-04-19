@@ -12,7 +12,7 @@ def getExcel ():
     
     import_file_path = filedialog.askopenfilename()
     df = pd.read_excel (import_file_path)
-    print (df)
+    print (df.values[100])
     
 browseButton_Excel = tk.Button(text='Import Excel File', command=getExcel, bg='green', fg='white', font=('helvetica', 12, 'bold'))
 canvas1.create_window(150, 150, window=browseButton_Excel)
