@@ -30,9 +30,11 @@ print (dict[word])
 
 for i in range(20,0,-1):
   print(i)
-
+import random as r
 for i in range(0,10):
   print("*",end='')
 
 print("\n")
 print ("*"*10)
+users =['ad','fg','yu','gry']
+print(r.choice(users))
