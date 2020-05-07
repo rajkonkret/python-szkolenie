@@ -17,7 +17,7 @@ if c>max:
 print('max = {}'.format(max))
 word = input('Podaj wyraz czy jest palindromem\n')
 reversed_string = word[::-1]
-if word = reversed_string:
+if word == reversed_string:
     print('Ten wyraz jest palindromem')
 else:
     print('Ten wyraz nie jest palindromem')
