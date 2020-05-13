@@ -6,7 +6,11 @@ quiz = {
         }
 questions = quiz.keys()
 score =0
-for question in  questions:
+for question in quiz:
+    #print(i)
+
+
+#for question in  questions:
     answer = input(question + '\n').lower()
     if answer == quiz[question]:
         print('Poprawna odpowiedź')
