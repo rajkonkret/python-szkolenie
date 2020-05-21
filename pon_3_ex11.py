@@ -5,4 +5,5 @@ def number_of_divisors(n):
             counter+=1
     return counter
 
+print(number_of_divisors(9240))
 

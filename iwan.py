@@ -1,0 +1,5 @@
+inputString = input("Wprowadz twój pierwszy string :")
+inputString2 = input("Wprowadz twój drugi string :")
+print("string is ", inputString+inputString2)
+abcs = max(inputString, inputString2)
+print(len(abcs))
