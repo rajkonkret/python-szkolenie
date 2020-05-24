@@ -32,6 +32,6 @@ for i in books:
     print(i.title + 'is old ' + str(i.get_days()) + ' days.')
 
 books.sort(key=get_date)
-print(books)
+print('The oldest is: ' + str(books[-1]))
 
 
