@@ -20,13 +20,18 @@ def get_date(book):
 books = []     
 dt = datetime.date(2010,1,1)
 dt2 = datetime.date(2010,1,28)
+dt3 = datetime.date(2014,7,28)
+
 book1 = Book('DScience', 'raj',55, dt)
-book2 = Book('Python od podstaw', 'rajkonkret',155, dt2)
+book2 = Book('Python od podstaw', 'rajkonkret', 155, dt2)
+book3 = Book('Python od podstaw TRZY', 'rajkonkret strum ', 789, dt3)
 
 print (book1.get_days())
 print(type(books))
 books.append(book2)
 books.append(book1)
+books.append(book3)
+
 print(books)
 for i in books:
     print(i.title + 'is old ' + str(i.get_days()) + ' days.')
