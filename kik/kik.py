@@ -125,11 +125,13 @@ while True:
                 draw_map(map)
                 winner = check_winner(map)
                 
-                if winner is None:
+                if winner is None and check_the_map_ending(map) is False:
                     print('Ruch komputera')
                     (c_column, c_row) = computer_move()
+                    
                     while map[c_column][c_row] is not None:
                         print('losuje dalej')
+                        print(map)
                         (c_column, c_row) = computer_move()
 
                     map[c_column][c_row] = move
@@ -137,13 +139,16 @@ while True:
                     move = change_player()
                     draw_map(map)
                     winner = check_winner(map)
+                    if winner is not None:
+                        win_the_game()
+        
 
                 if winner is not None:
                     win_the_game()
 
                 if winner is None and check_the_map_ending(map):
                     banner = banner_Font.render('Remis', False, white)
-                    screen.blit(banner, (500//3.7, 500//2 - 500//9))
+                    screen.blit(banner, (int(500//3.7), 500//2 - 500//9))
                 
 
     pygame.display.update()
