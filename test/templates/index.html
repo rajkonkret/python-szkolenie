@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<h1>Quiz Python</h1> 
+<form action="/result" method="post">
+{% for question in questions    %}
+<p>{{question.title}}</p>
+<select name ="{{question.id}}">
+<option value="tak">Tak</option>
+<option value="nie">Nie</option>
+</select>
+{% endfor %}
+<input type="submit" value="Pokaz wynik">
+</form>
+
+</body>
+
+</html>

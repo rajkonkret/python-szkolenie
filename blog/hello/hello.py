@@ -13,7 +13,7 @@ def index():
 def result():
     name = request.args.get('name')
     surname = request.args.get('surname')
-    age = request.args.get('age')
+    age = []
     return render_template('result.html', name=name, surname=surname,age=age)
 
 if __name__=='__main__':

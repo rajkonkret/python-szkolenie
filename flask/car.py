@@ -18,5 +18,14 @@ def display_car():
 def display_form():
     return render_template('form.html')
 
+@app.route("/form2", methods=["POST"])
+def form2():
+    items = request.form.items()
+    email = 'test'
+    for argument, value in items:
+        print(argument)
+        if argument == 'email':
+            email = value
+    return render_template('form2.html', email=email)
 if __name__=='__main__':
     app.run(debug=True)
