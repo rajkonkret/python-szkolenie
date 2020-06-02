@@ -7,6 +7,8 @@ black = (0,0,0)
 map_size = 500
 move ='x'
 finish = False
+new_map_2 = []
+map_to = []
 def change_player():
     global move
     if move =='x':
@@ -43,7 +45,7 @@ map = [
     [None,None,None],
     [None,None,None],
     [None,None,None]
-]
+    ]
 
 pygame.font.init()
 screen.fill((141,141,141))
@@ -74,21 +76,87 @@ def get_num(r_c_s, x):
     return column
 
 def check_winner(map):
-    if (map[1][1] is not None and map[0][0]==map[1][1] and map[1][1]==map[2][2]):
-        return map[1][1]
+    global map_to
+    map_to = map.copy()
+    if (map_to[1][1] is not None and map_to[0][0]==map_to[1][1] and map_to[1][1]==map_to[2][2]):
+        return map_to[1][1]
 
-    if (map[1][1] is not None and map[0][2]==map[1][1] and map[1][1]==map[2][0]):
-        return map[1][1]
-
-    for i in range(3):
-        if (map[i][0] is not None and map[i][0]==map[i][1] and map[i][1]==map[i][2]):
-            return map[i][0]
+    if (map_to[1][1] is not None and map_to[0][2]==map_to[1][1] and map_to[1][1]==map_to[2][0]):
+        return map_to[1][1]
 
     for i in range(3):
-        if (map[0][i] is not None and map[0][i]==map[1][i] and map[1][i]==map[2][i]):
-            return map[0][i]
+        if (map_to[i][0] is not None and map_to[i][0]==map_to[i][1] and map_to[i][1]==map_to[i][2]):
+            return map_to[i][0]
+
+    for i in range(3):
+        if (map_to[0][i] is not None and map_to[0][i]==map_to[1][i] and map_to[1][i]==map_to[2][i]):
+            return map_to[0][i]
     return None
-def computer_move(): 
+
+def computer_move(map_this): 
+    global new_map_2
+    temp_list = [[None,None,None],
+                 [None,None,None],
+                 [None,None,None]]
+
+    for y in range(3):
+        for x in range(3):
+            temp_list[x][y] = map_this[x][y]
+    
+    #new_map_2[0][1] = move
+    #print(new_map_2)
+
+    for x in range(3):
+        for y in range(3):
+          
+          if temp_list[y][x] is None:
+              print('x= ',x,' y= ',y)
+              print(new_map_2)
+              temp_list[y][x]=move
+              check = check_winner(temp_list)
+              if  check is not None:
+                  print(check)
+                  print('winner computer')
+                  return y,x
+              print(temp_list)
+              for y in range(3):
+                  for x in range(3):
+                      temp_list[x][y] = map_this[x][y]
+
+    for y in range(3):
+        for x in range(3):
+            temp_list[x][y] = map_this[x][y]
+    
+    #new_map_2[0][1] = move
+    #print(new_map_2)
+    change_player()
+    for x in range(3):
+        for y in range(3):
+          
+          if temp_list[y][x] is None:
+              print('x= ',x,' y= ',y)
+              print(new_map_2)
+              temp_list[y][x]=move
+              check = check_winner(temp_list)
+              if  check is not None:
+                  print(check)
+                  print('winner computer')
+                  change_player()
+                  return y,x
+              print(temp_list)
+              for y in range(3):
+                  for x in range(3):
+                      temp_list[x][y] = map_this[x][y]    
+            
+
+              #if check_winner(new_map_2):
+    change_player()         
+        
+
+                
+
+                
+                
     x = random.randint(0,2)
     y = random.randint(0,2)
     return x,y
@@ -109,6 +177,7 @@ def win_the_game():
     finish = True
 
 while True:
+  
     for action in pygame.event.get():
         if action.type == pygame.QUIT:
             
@@ -127,12 +196,15 @@ while True:
                 
                 if winner is None and check_the_map_ending(map) is False:
                     print('Ruch komputera')
-                    (c_column, c_row) = computer_move()
                     
+                    (c_column, c_row) = computer_move(map)
+                   
                     while map[c_column][c_row] is not None:
+                      
                         print('losuje dalej')
                         print(map)
-                        (c_column, c_row) = computer_move()
+                        (c_column, c_row) = computer_move(map)
+                        
 
                     map[c_column][c_row] = move
                     print('Ruch komputera',c_column,' ', c_row)
