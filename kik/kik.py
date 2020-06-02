@@ -1,5 +1,6 @@
 import pygame
 import sys
+import random
 
 white = (255,255,255)
 black = (0,0,0)
@@ -16,10 +17,10 @@ def change_player():
 
 def draw_lines():
     global screen_size
-    pygame.draw.line(screen,black, (500/3,0),(500/3,500),10)
-    pygame.draw.line(screen,black, (0,500/3),(500,500/3),10)
-    pygame.draw.line(screen,black, (2*500/3,0),(500/3*2,500),10)
-    pygame.draw.line(screen,black, (0,500/3*2),(500,2*500/3),10)
+    pygame.draw.line(screen,black, (500//3,0),(500//3,500),10)
+    pygame.draw.line(screen,black, (0,500//3),(500,500//3),10)
+    pygame.draw.line(screen,black, (2*500//3,0),(500//3*2,500),10)
+    pygame.draw.line(screen,black, (0,500//3*2),(500,2*500//3),10)
 
 def draw_map(map):
     for y in range(3):
@@ -87,6 +88,10 @@ def check_winner(map):
         if (map[0][i] is not None and map[0][i]==map[1][i] and map[1][i]==map[2][i]):
             return map[0][i]
     return None
+def computer_move(): 
+    x = random.randint(0,2)
+    y = random.randint(0,2)
+    return x,y
 
 
 def start_game():
@@ -114,10 +119,24 @@ while True:
             (column, row) = mouse_to_map()
         
             if map[column][row] is None:
+                
                 map[column][row] = move
                 move = change_player()
                 draw_map(map)
                 winner = check_winner(map)
+                
+                if winner is None:
+                    print('Ruch komputera')
+                    (c_column, c_row) = computer_move()
+                    while map[c_column][c_row] is not None:
+                        print('losuje dalej')
+                        (c_column, c_row) = computer_move()
+
+                    map[c_column][c_row] = move
+                    print('Ruch komputera',c_column,' ', c_row)
+                    move = change_player()
+                    draw_map(map)
+                    winner = check_winner(map)
 
                 if winner is not None:
                     win_the_game()
@@ -125,5 +144,6 @@ while True:
                 if winner is None and check_the_map_ending(map):
                     banner = banner_Font.render('Remis', False, white)
                     screen.blit(banner, (500//3.7, 500//2 - 500//9))
+                
 
     pygame.display.update()
