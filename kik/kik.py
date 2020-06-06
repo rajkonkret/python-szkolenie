@@ -95,13 +95,9 @@ def check_winner(map):
 
 def computer_move(map_this): 
     global new_map_2
-    temp_list = [[None,None,None],
-                 [None,None,None],
-                 [None,None,None]]
+    temp_list = change_list(map_this)
 
-    for y in range(3):
-        for x in range(3):
-            temp_list[x][y] = map_this[x][y]
+    
     
     #new_map_2[0][1] = move
     #print(new_map_2)
@@ -110,8 +106,6 @@ def computer_move(map_this):
         for y in range(3):
           
           if temp_list[y][x] is None:
-              print('x= ',x,' y= ',y)
-              print(new_map_2)
               temp_list[y][x]=move
               check = check_winner(temp_list)
               if  check is not None:
@@ -119,13 +113,9 @@ def computer_move(map_this):
                   print('winner computer')
                   return y,x
               print(temp_list)
-              for y in range(3):
-                  for x in range(3):
-                      temp_list[x][y] = map_this[x][y]
+              temp_list = change_list(map_this)
 
-    for y in range(3):
-        for x in range(3):
-            temp_list[x][y] = map_this[x][y]
+    temp_list = change_list(map_this)
     
     #new_map_2[0][1] = move
     #print(new_map_2)
@@ -134,19 +124,16 @@ def computer_move(map_this):
         for y in range(3):
           
           if temp_list[y][x] is None:
-              print('x= ',x,' y= ',y)
-              print(new_map_2)
               temp_list[y][x]=move
               check = check_winner(temp_list)
               if  check is not None:
                   print(check)
-                  print('winner computer')
+                  print('winner ja')
                   change_player()
                   return y,x
               print(temp_list)
-              for y in range(3):
-                  for x in range(3):
-                      temp_list[x][y] = map_this[x][y]    
+              temp_list = change_list(map_this)
+              
             
 
               #if check_winner(new_map_2):
@@ -156,11 +143,20 @@ def computer_move(map_this):
                 
 
                 
-                
+    print(temp_list)        
     x = random.randint(0,2)
     y = random.randint(0,2)
     return x,y
 
+def change_list(map_to_change):
+    temp_list = [[None,None,None],
+                 [None,None,None],
+                 [None,None,None]]
+    print('kopiuję listę')
+    for y in range(3):
+                  for x in range(3):
+                      temp_list[x][y] = map_to_change[x][y]    
+    return temp_list
 
 def start_game():
     screen.fill(backgroundColor)
